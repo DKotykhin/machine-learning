@@ -6,6 +6,7 @@ import {
     FormControl,
     FormHelperText,
     OutlinedInput,
+    Input,
 } from "@mui/material";
 
 import styles from './inputField.module.scss';
@@ -27,7 +28,7 @@ const InputField: React.FC<INameField> = ({ label, defaultValue, error, control 
                     control={control}
                     defaultValue={defaultValue}
                     render={({ field }) => (
-                        <OutlinedInput
+                        <Input
                             {...field}
                             type="number"
                             placeholder="type the value..."

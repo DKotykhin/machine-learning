@@ -1,33 +1,69 @@
-import React from 'react';
+import * as React from 'react';
 
-import { Box, Container, Tab } from '@mui/material';
-import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { Tabs, Tab, Box, Container } from '@mui/material';
 
 import FirstTab from './firstTab.tsx/FirstTab';
 import SecondTab from './secondTab/SecondTab';
+import ThirdTab from './thirdTab/ThirdTab';
 
-const Tabs: React.FC = () => {
+const BasicTabs = () => {
 
-    const [value, setValue] = React.useState('1');
+    interface TabPanelProps {
+        children?: React.ReactNode;
+        index: number;
+        value: number;
+    }
 
-    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    function TabPanel(props: TabPanelProps) {
+        const { children, value, index, ...other } = props;
+
+        return (
+            <div
+                role="tabpanel"
+                hidden={value !== index}
+                id={`simple-tabpanel-${index}`}
+                aria-labelledby={`simple-tab-${index}`}
+                {...other}
+            >
+                {value === index && (
+                    <Box sx={{ p: 3 }}>
+                        <Box>{children}</Box>
+                    </Box>
+                )}
+            </div>
+        );
+    }
+
+    function a11yProps(index: number) {
+        return {
+            id: `simple-tab-${index}`,
+            'aria-controls': `simple-tabpanel-${index}`,
+        };
+    }
+
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
 
     return (
-        <Container maxWidth='lg' >
-            <TabContext value={value}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <TabList onChange={handleChange} aria-label="classify tabs">
-                        <Tab label={'Classify'} value="1" />
-                        <Tab label={'Classify for accuracy'} value="2" />
-                    </TabList>
-                </Box>
-                <TabPanel value="1"><FirstTab /></TabPanel>
-                <TabPanel value="2"><SecondTab /></TabPanel>
-            </TabContext>
+        <Container maxWidth='md' >
+            <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="classify tabs"
+                centered
+            >
+                <Tab value={0} label={'Classify'} {...a11yProps(0)} />
+                <Tab value={1} label={'Classify for accuracy'} {...a11yProps(1)} />
+                <Tab value={2} label={'Show Diagram'} {...a11yProps(2)} />
+            </Tabs>
+            <TabPanel value={value} index={0}><FirstTab /></TabPanel>
+            <TabPanel value={value} index={1}><SecondTab /></TabPanel>
+            <TabPanel value={value} index={2}><ThirdTab /></TabPanel>
         </Container>
     );
 }
 
-export default Tabs;
+export default BasicTabs;

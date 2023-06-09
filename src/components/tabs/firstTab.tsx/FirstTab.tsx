@@ -23,7 +23,7 @@ const FirstTab: React.FC = () => {
     };
 
     return (
-        <Container maxWidth='sm' className={styles.firstTab}>
+        <Container maxWidth='xs' className={styles.firstTab}>
             <Typography className={styles.firstTab__title}>
                 {"Fill the form"}
             </Typography>

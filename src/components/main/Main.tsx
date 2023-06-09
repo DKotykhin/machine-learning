@@ -1,44 +1,46 @@
 import React, { useState } from 'react';
 
-import { Button, Box, Typography } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 
 import Tabs from 'components/tabs/Tabs';
+import BasicModal from 'components/modal/BasicModal';
+import UploadForm from 'components/uploadForm/uploadForm';
 
 import styles from './main.module.scss';
-import BasicModal from 'components/modal/BasicModal';
 
 const Main: React.FC = () => {
 
     const [openModal, setOpenModal] = useState(false);
+    const [showTabs, setShowTabs] = useState(false);
 
-    const handleSwow = () => setOpenModal(true);
+    // const handleSwow = () => setOpenModal(true);
     const handleClose = () => setOpenModal(false);
-
-    const handleUpload = () => console.log('Upload .csv');
+    const uploadStatus = (data: boolean) => setShowTabs(data);
+    const handleReturn = () => setShowTabs(false);
 
     return (
         <Box className={styles.main}>
             <Typography className={styles.main__title}>
-                Page Title
+                Classification and Regression Tree
             </Typography>
-            <Box className={styles.main__box}>
-                <Button
-                    variant='outlined'
-                    onClick={handleUpload}
+            {showTabs
+                ? <Button
                     className={styles.main__button}
+                    onClick={handleReturn}
                 >
-                    Upload .csv
+                    Return to upload .csv
                 </Button>
-                <Button
-                    variant='outlined'
-                    onClick={handleSwow}
-                    className={styles.main__button}
-                >
-                    Show diagram
-                </Button>
-            </Box>
-            <Tabs />
-            <BasicModal openModal={openModal} handleClose={handleClose}/>
+                : <UploadForm uploadStatus={uploadStatus} name={'iris'} />
+            }
+            {/* <Button
+                variant='outlined'
+                onClick={handleSwow}
+                className={styles.main__button}
+            >
+                Show diagram
+            </Button> */}
+            {showTabs && <Tabs />}
+            <BasicModal openModal={openModal} handleClose={handleClose} />
         </Box>
     )
 }

@@ -8,9 +8,9 @@ import styles from './header.module.scss';
 const Header: React.FC = () => {
     return (
         <Box className={styles.header}>
-            <img src={logo} alt='machine learning' />
+            <img src={logo} alt='Classification and Regression Tree' />
             <Typography className={styles.header__text}>
-                Machine Learning
+                Classification and Regression Tree
             </Typography>
         </Box>
     )
