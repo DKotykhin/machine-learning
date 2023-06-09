@@ -1,0 +1,13 @@
+@import "constants/constants.scss";
+
+.footer {
+    min-height: 60px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    background-color: $color_grey;
+    .footer__text {
+        color: #fff;
+    }
+}

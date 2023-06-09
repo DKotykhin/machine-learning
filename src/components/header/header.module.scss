@@ -1,0 +1,14 @@
+@import "constants/constants.scss";
+
+.header {
+    min-height: 60px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    background-color: $color_grey;
+    .header__text {
+        color: #fff;
+        margin-left: 20px;
+    }
+}
