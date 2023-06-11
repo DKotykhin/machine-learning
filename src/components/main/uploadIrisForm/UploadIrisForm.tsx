@@ -4,14 +4,16 @@ import { useForm, FieldValues } from "react-hook-form";
 import { Box, Button, Typography } from '@mui/material';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
-import styles from './uploadForm.module.scss';
+import Upload from 'api/api';
+import { IUploadCSVResponse } from 'types/types';
 
-interface IUploadForm {
-    uploadStatus: (arg: boolean) => void;
-    name: string;
+import styles from './uploadIrisForm.module.scss';
+
+interface IUploadIrisForm {
+    uploadData: (arg: IUploadCSVResponse) => void;
 }
 
-const UploadForm: React.FC<IUploadForm> = ({ uploadStatus, name }) => {
+const UploadIrisForm: React.FC<IUploadIrisForm> = ({ uploadData }) => {
 
     const [fileName, setFileName] = useState('');
 
@@ -22,13 +24,18 @@ const UploadForm: React.FC<IUploadForm> = ({ uploadStatus, name }) => {
     };
 
     const onSubmit = (data: FieldValues): void => {
-        if (data[name].length) {
-            console.log(data[name][0].name)
+        if (data.file.length) {
+            // console.log(data.file[0].name);
             const formData = new FormData();
-            formData.append(name, data[name][0], data[name][0].name);
-            setFileName("");
-            reset();
-            uploadStatus(true);
+            formData.append("file", data.file[0], data.file[0].name);
+            Upload.UploadCSV(formData)
+                .then((response) => {
+                    // console.log(response);
+                    uploadData(response);
+                    setFileName("");
+                    reset();
+                })
+                .catch((error) => console.log(error))
         }
     };
 
@@ -46,7 +53,7 @@ const UploadForm: React.FC<IUploadForm> = ({ uploadStatus, name }) => {
                     {fileName ? fileName : 'Choose file...'}
                 </Typography>
                 <Box
-                    {...register(name)}
+                    {...register("file")}
                     component="input"
                     type="file"
                     hidden
@@ -64,4 +71,4 @@ const UploadForm: React.FC<IUploadForm> = ({ uploadStatus, name }) => {
     )
 }
 
-export default UploadForm;
+export default UploadIrisForm;

@@ -3,20 +3,22 @@ import React, { useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 
 import Tabs from 'components/tabs/Tabs';
-import BasicModal from 'components/modal/BasicModal';
-import UploadForm from 'components/uploadForm/uploadForm';
+import UploadIrisForm from './uploadIrisForm/UploadIrisForm';
+
+import { IUploadCSVResponse } from 'types/types';
 
 import styles from './main.module.scss';
 
 const Main: React.FC = () => {
 
-    const [openModal, setOpenModal] = useState(false);
     const [showTabs, setShowTabs] = useState(false);
+    const [data, setData] = useState<IUploadCSVResponse>();
 
-    // const handleSwow = () => setOpenModal(true);
-    const handleClose = () => setOpenModal(false);
-    const uploadStatus = (data: boolean) => setShowTabs(data);
     const handleReturn = () => setShowTabs(false);
+    const uploadData = (data: IUploadCSVResponse) => {
+        if (data) setShowTabs(true);
+        setData(data);
+    }
 
     return (
         <Box className={styles.main}>
@@ -30,17 +32,9 @@ const Main: React.FC = () => {
                 >
                     Return to upload .csv
                 </Button>
-                : <UploadForm uploadStatus={uploadStatus} name={'iris'} />
+                : <UploadIrisForm uploadData={uploadData} />
             }
-            {/* <Button
-                variant='outlined'
-                onClick={handleSwow}
-                className={styles.main__button}
-            >
-                Show diagram
-            </Button> */}
-            {showTabs && <Tabs />}
-            <BasicModal openModal={openModal} handleClose={handleClose} />
+            {showTabs && <Tabs data={data} />}
         </Box>
     )
 }

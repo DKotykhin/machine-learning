@@ -6,7 +6,9 @@ import FirstTab from './firstTab.tsx/FirstTab';
 import SecondTab from './secondTab/SecondTab';
 import ThirdTab from './thirdTab/ThirdTab';
 
-const BasicTabs = () => {
+import { IUploadCSVResponse } from 'types/types';
+
+const BasicTabs: React.FC<{ data: IUploadCSVResponse | undefined }> = ({ data }) => {
 
     interface TabPanelProps {
         children?: React.ReactNode;
@@ -59,9 +61,9 @@ const BasicTabs = () => {
                 <Tab value={1} label={'Classify for accuracy'} {...a11yProps(1)} />
                 <Tab value={2} label={'Show Diagram'} {...a11yProps(2)} />
             </Tabs>
-            <TabPanel value={value} index={0}><FirstTab /></TabPanel>
+            <TabPanel value={value} index={0}><FirstTab data={data}/></TabPanel>
             <TabPanel value={value} index={1}><SecondTab /></TabPanel>
-            <TabPanel value={value} index={2}><ThirdTab /></TabPanel>
+            <TabPanel value={value} index={2}><ThirdTab data={data}/></TabPanel>
         </Container>
     );
 }

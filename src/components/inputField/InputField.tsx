@@ -5,7 +5,6 @@ import {
     InputLabel,
     FormControl,
     FormHelperText,
-    OutlinedInput,
     Input,
 } from "@mui/material";
 
@@ -13,7 +12,7 @@ import styles from './inputField.module.scss';
 
 interface INameField {
     label: string;
-    defaultValue: string;    
+    defaultValue: string;
     error: any;
     control: any;
 }
@@ -36,7 +35,7 @@ const InputField: React.FC<INameField> = ({ label, defaultValue, error, control 
                         />
                     )}
                 />
-            <FormHelperText>{error?.message}</FormHelperText>
+                <FormHelperText>{error?.message}</FormHelperText>
             </FormControl>
         </Box>
     );

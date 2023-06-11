@@ -1,15 +1,19 @@
-import React from 'react';
-import { useForm } from "react-hook-form";
+import React, { useState } from 'react';
+import { useForm, FieldValues } from "react-hook-form";
 
 import { Box, Typography, Button, Container } from '@mui/material';
 
 import InputField from 'components/inputField/InputField';
-import { api } from 'api/api';
+import Upload from 'api/api';
+import { formData } from './formData';
+
+import { IUploadCSVResponse } from 'types/types';
 
 import styles from './firstTab.module.scss';
 
-const FirstTab: React.FC = () => {
+const FirstTab: React.FC<{ data: IUploadCSVResponse | undefined }> = ({ data }) => {
 
+    const [result, setResult] = useState("");
     const {
         control,
         handleSubmit,
@@ -17,9 +21,16 @@ const FirstTab: React.FC = () => {
         reset,
     } = useForm();
 
-    const onSubmit = (data: any) => {
-        console.log(data);
+    const onSubmit = (data: FieldValues) => {
+        const newData = formData(data);
+        // console.log(newData);
         reset();
+        Upload.UploadForm(newData)
+            .then((response) => {
+                // console.log(response);
+                setResult(response.result)
+            })
+            .catch((error) => console.log(error))
     };
 
     return (
@@ -31,7 +42,7 @@ const FirstTab: React.FC = () => {
                 component="form"
                 onSubmit={handleSubmit(onSubmit)}
             >
-                {api?.map((input, i) => (
+                {data?.features.map((input, i) => (
                     <Box key={i}>
                         <InputField
                             label={input}
@@ -49,7 +60,7 @@ const FirstTab: React.FC = () => {
                 </Button>
             </Box>
             <Typography className={styles.firstTab__result}>
-                {"Result: Selosa"}
+                {result ? `Result: ${result}` : ""}
             </Typography>
         </Container>
     )

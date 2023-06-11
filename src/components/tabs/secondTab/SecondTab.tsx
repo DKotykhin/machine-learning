@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 
 import { Box, Button, Typography } from '@mui/material';
 
+import UploadTestForm from './uploadTestForm/UploadTestForm';
+
 import styles from './secondTab.module.scss';
-import UploadForm from 'components/uploadForm/uploadForm';
 
 const SecondTab: React.FC = () => {
 
     const [showResult, setShowResult] = useState(false);
+    const [accuracy, setAccuracy] = useState<number>();
 
-    const uploadStatus = (data: boolean) => setShowResult(data);
     const handleReturn = () => setShowResult(false);
+    const uploadData = (data: number) => {
+        if (data) setShowResult(true);
+        setAccuracy(data);
+    }
 
     return (
         <Box className={styles.secondTab}>
@@ -20,9 +25,11 @@ const SecondTab: React.FC = () => {
             {showResult
                 ?
                 <>
-                    <Typography className={styles.secondTab__result}>
-                        {"Accuracy: 99%"}
-                    </Typography>
+                    {accuracy &&
+                        <Typography className={styles.secondTab__result}>
+                            {"Accuracy: "}{Math.floor(accuracy * 100)}{"%"}
+                        </Typography>
+                    }
                     <Button
                         className={styles.secondTab__button}
                         onClick={handleReturn}
@@ -31,7 +38,7 @@ const SecondTab: React.FC = () => {
                     </Button>
                 </>
                 :
-                <UploadForm uploadStatus={uploadStatus} name={'test'} />
+                <UploadTestForm uploadData={uploadData} />
             }
         </Box>
     )

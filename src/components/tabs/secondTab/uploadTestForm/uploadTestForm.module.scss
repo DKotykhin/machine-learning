@@ -1,0 +1,15 @@
+.uploadForm {
+    text-align: center;
+    .uploadForm__label {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        svg {
+            padding: 0 10px;
+        }
+    }
+    .uploadForm__submit {
+        display: block;
+        margin: 20px auto;
+    }
+}
