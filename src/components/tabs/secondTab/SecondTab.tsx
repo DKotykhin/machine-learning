@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, Button, Typography } from '@mui/material';
+import { Container, Button, Typography } from '@mui/material';
 
 import UploadTestForm from './uploadTestForm/UploadTestForm';
 
@@ -18,9 +18,12 @@ const SecondTab: React.FC = () => {
     }
 
     return (
-        <Box className={styles.secondTab}>
+        <Container maxWidth='xs' className={styles.secondTab}>
             <Typography className={styles.secondTab__title}>
                 Upload test set
+            </Typography>
+            <Typography className={styles.secondTab__subtitle}>
+                Upload set of data(features values with classes) and CART algorithm will return accuracy of prediction
             </Typography>
             {showResult
                 ?
@@ -34,13 +37,13 @@ const SecondTab: React.FC = () => {
                         className={styles.secondTab__button}
                         onClick={handleReturn}
                     >
-                        Return to upload .csv
+                        Return to upload test set
                     </Button>
                 </>
                 :
                 <UploadTestForm uploadData={uploadData} />
             }
-        </Box>
+        </Container>
     )
 }
 

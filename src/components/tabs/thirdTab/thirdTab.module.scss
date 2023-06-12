@@ -1,5 +1,14 @@
 .thirdTab {
     text-align: center;
+    .thirdTab__title {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+    .thirdTab__subtitle {
+        color: #808080;
+        margin-bottom: 30px;
+        font-style: italic;
+    }
     img {
         margin-top: 20px;
     }

@@ -23,18 +23,27 @@ const Main: React.FC = () => {
     return (
         <Box className={styles.main}>
             <Typography className={styles.main__title}>
-                Classification and Regression Tree
+                Classify your data with CART!
             </Typography>
+            {showTabs && <Tabs data={data} />}
             {showTabs
-                ? <Button
+                ?
+                <Button
                     className={styles.main__button}
                     onClick={handleReturn}
+                    color='error'
+                    variant='outlined'
                 >
-                    Return to upload .csv
+                    Return
                 </Button>
-                : <UploadIrisForm uploadData={uploadData} />
+                :
+                <>
+                    <Typography className={styles.main__subtitle}>
+                        Upload set of data in csv format and train CART algorithm
+                    </Typography>
+                    <UploadIrisForm uploadData={uploadData} />
+                </>
             }
-            {showTabs && <Tabs data={data} />}
         </Box>
     )
 }

@@ -1,11 +1,12 @@
 .uploadForm {
     text-align: center;
+    margin-top: 80px;
     .uploadForm__label {
         cursor: pointer;
         display: flex;
         justify-content: center;
         svg {
-            padding: 0 10px;
+            padding: 0 10px 0 0;
         }
     }
     .uploadForm__submit {

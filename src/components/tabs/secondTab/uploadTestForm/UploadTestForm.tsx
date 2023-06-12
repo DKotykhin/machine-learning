@@ -5,6 +5,7 @@ import { Box, Button, Typography } from '@mui/material';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 import Upload from 'api/api';
+import Spinner from 'components/spinner/Spinner';
 
 import styles from './uploadTestForm.module.scss';
 
@@ -15,21 +16,26 @@ interface IUploadForm {
 const UploadForm: React.FC<IUploadForm> = ({ uploadData }) => {
 
     const [fileName, setFileName] = useState('');
+    const [fileError, setFileError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const { register, reset, handleSubmit } = useForm();
 
     const onChange = (e: any) => {
         setFileName(e.target.files[0].name);
+        setFileError(e.target.files[0].type !== 'text/csv');
     };
 
     const onSubmit = (data: FieldValues): void => {
         if (data.file.length) {
             // console.log(data.file[0].name);
+            setLoading(true);
             const formData = new FormData();
             formData.append("file", data.file[0], data.file[0].name);
             Upload.UploadTest(formData)
                 .then((response) => {
                     // console.log(response);
+                    setLoading(false);
                     uploadData(response.accuracy)
                     setFileName("");
                     reset();
@@ -38,7 +44,7 @@ const UploadForm: React.FC<IUploadForm> = ({ uploadData }) => {
         }
     };
 
-    return (
+    return !loading ? (
         <Box
             component="form"
             noValidate
@@ -58,16 +64,21 @@ const UploadForm: React.FC<IUploadForm> = ({ uploadData }) => {
                     hidden
                 />
             </Box>
+            {fileError &&
+                <Typography color='error' sx={{ mt: 1 }}>
+                    Incorrect file type!
+                </Typography>
+            }
             <Button
                 variant='outlined'
                 type="submit"
                 className={styles.uploadForm__submit}
-                disabled={!fileName}
+                disabled={!fileName || fileError}
             >
                 Upload .csv
             </Button>
         </Box>
-    )
+    ) : <Spinner />
 }
 
 export default UploadForm;

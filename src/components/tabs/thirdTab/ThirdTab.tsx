@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import { BASE_URL } from 'api/api';
 
 import { IUploadCSVResponse } from 'types/types';
@@ -13,6 +13,12 @@ const ThirdTab: React.FC<{ data: IUploadCSVResponse | undefined }> = ({ data }) 
 
     return (
         <Container maxWidth='sm' className={styles.thirdTab}>
+            <Typography className={styles.thirdTab__title}>
+                Algorithm diagram
+            </Typography>
+            <Typography className={styles.thirdTab__subtitle}>
+                Algorithm's decision tree based on train set
+            </Typography>
             <img src={imgUrl} alt='test diagram' />
         </Container>
     )

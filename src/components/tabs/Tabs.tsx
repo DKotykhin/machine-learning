@@ -57,9 +57,9 @@ const BasicTabs: React.FC<{ data: IUploadCSVResponse | undefined }> = ({ data })
                 aria-label="classify tabs"
                 centered
             >
-                <Tab value={0} label={'Classify'} {...a11yProps(0)} />
-                <Tab value={1} label={'Classify for accuracy'} {...a11yProps(1)} />
-                <Tab value={2} label={'Show Diagram'} {...a11yProps(2)} />
+                <Tab value={0} label='Classify one' {...a11yProps(0)} />
+                <Tab value={1} label='Classify set' {...a11yProps(1)} />
+                <Tab value={2} label='Algorithm diagram' {...a11yProps(2)} />
             </Tabs>
             <TabPanel value={value} index={0}><FirstTab data={data}/></TabPanel>
             <TabPanel value={value} index={1}><SecondTab /></TabPanel>

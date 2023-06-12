@@ -32,6 +32,7 @@ class Upload {
     async UploadForm(data: IFormData[]): Promise<{ result: string }> {
         const config = {
             method: "POST",
+            mode: "no-cors",
             url: "/api/predict-one",
             headers: {
                 "Content-Type": "application/json",
@@ -46,6 +47,7 @@ class Upload {
     async UploadTest(data: FormData): Promise<{ accuracy: number }> {
         const config = {
             method: "POST",
+            mode: "no-cors",
             url: "/api/predict-set",
             headers: {
                 "Content-Type": "multipart/form-data",

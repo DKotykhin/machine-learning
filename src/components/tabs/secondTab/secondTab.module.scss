@@ -1,9 +1,15 @@
 .secondTab {
-    text-align: center;
     .secondTab__title {
+        text-align: center;
         font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+    .secondTab__subtitle {
+        text-align: center;
+        color: #808080;
         margin-bottom: 50px;
-    }   
+        font-style: italic;
+    }  
     .secondTab__result {
         font-size: 1.25rem;
     }

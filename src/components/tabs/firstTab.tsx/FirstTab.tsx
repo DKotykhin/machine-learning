@@ -14,6 +14,8 @@ import styles from './firstTab.module.scss';
 const FirstTab: React.FC<{ data: IUploadCSVResponse | undefined }> = ({ data }) => {
 
     const [result, setResult] = useState("");
+    const [loading, setLoading] = useState(false);
+
     const {
         control,
         handleSubmit,
@@ -22,12 +24,14 @@ const FirstTab: React.FC<{ data: IUploadCSVResponse | undefined }> = ({ data }) 
     } = useForm();
 
     const onSubmit = (data: FieldValues) => {
+        setLoading(true);
         const newData = formData(data);
         // console.log(newData);
-        reset();
         Upload.UploadForm(newData)
             .then((response) => {
                 // console.log(response);
+                setLoading(false);
+                reset();
                 setResult(response.result)
             })
             .catch((error) => console.log(error))
@@ -36,7 +40,10 @@ const FirstTab: React.FC<{ data: IUploadCSVResponse | undefined }> = ({ data }) 
     return (
         <Container maxWidth='xs' className={styles.firstTab}>
             <Typography className={styles.firstTab__title}>
-                {"Fill the form"}
+                Fill feature values
+            </Typography>
+            <Typography className={styles.firstTab__subtitle}>
+                Specify values for each feature and CART algorithm will try to predict its class
             </Typography>
             <Box
                 component="form"
@@ -56,7 +63,7 @@ const FirstTab: React.FC<{ data: IUploadCSVResponse | undefined }> = ({ data }) 
                     className={styles.firstTab__submit_button}
                     type="submit"
                 >
-                    {"Classify"}
+                    {loading ? "Loading..." : "Classify"}
                 </Button>
             </Box>
             <Typography className={styles.firstTab__result}>
